@@ -3,7 +3,7 @@ import base64 from 'react-native-base64'
 // Watson Assistant API documentation:
 // https://console.bluemix.net/apidocs/assistant
 
-export default MessageRequest = (input, context = {}) => {
+MessageRequest = async(input, context = {}) => {
 
     let body = {
         alternate_intents: true,
@@ -14,9 +14,8 @@ export default MessageRequest = (input, context = {}) => {
     if (context) {
         body.context = context;
     }
-    return fetch('http://localhost:3000/conversation/', {
+    return fetch('http://192.168.1.5:3000/conversation/', {
         method: 'POST',
-        mode: 'cors',
         headers: {
             // Authorization: 'Basic ' + base64.encode("apikey:KjcI6wFW-v2MtmHAxuLY5sRdS0_OqMwNG3849n5Ws77y"),
             Accept: 'application/json',
@@ -34,4 +33,8 @@ export default MessageRequest = (input, context = {}) => {
             console.error(error);
         });
 
+}
+
+module.exports = {
+    MessageRequest
 }

@@ -63,7 +63,7 @@ export default class App extends Component {
           _id: '2',
           name: 'Watson Assistant',
         },
-        image: 'https://i.ebayimg.com/00/s/MTYwMFgxNjAw/z/d4IAAOSw-CpX~8b~/$_35.JPG',
+        image: 'https://guiaarturnogueira.com.br/wp-content/uploads/2016/02/verona.jpg',
       };
       this.setState((previousState) => ({
         messages: GiftedChat.append(previousState.messages, message),
