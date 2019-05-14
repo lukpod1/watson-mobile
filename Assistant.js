@@ -1,8 +1,10 @@
 import base64 from 'react-native-base64'
-
+// 
 // Watson Assistant API documentation:
 // https://console.bluemix.net/apidocs/assistant
-MessageRequest = (input, context = {}) => {
+
+export default MessageRequest = (input, context = {}) => {
+
     let body = {
         alternate_intents: true,
         input: {
@@ -12,9 +14,11 @@ MessageRequest = (input, context = {}) => {
     if (context) {
         body.context = context;
     }
-    return fetch('https://serverwatsonchatbot.herokuapp.com/conversation/', {
+    return fetch('http://localhost:3000/conversation/', {
         method: 'POST',
+        mode: 'cors',
         headers: {
+            // Authorization: 'Basic ' + base64.encode("apikey:KjcI6wFW-v2MtmHAxuLY5sRdS0_OqMwNG3849n5Ws77y"),
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
@@ -30,8 +34,4 @@ MessageRequest = (input, context = {}) => {
             console.error(error);
         });
 
-}
-
-module.exports = {
-    MessageRequest
 }
