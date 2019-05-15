@@ -1,37 +1,22 @@
-import base64 from 'react-native-base64'
-// 
-// Watson Assistant API documentation:
-// https://console.bluemix.net/apidocs/assistant
+MessageRequest = async (input, context = {}) => {
 
-MessageRequest = async(input, context = {}) => {
-
+    console.log(input)
     let body = {
-        alternate_intents: true,
         input: {
-            'text': input
-        }
-    };
-    if (context) {
-        body.context = context;
-    }
-    return fetch('http://192.168.1.5:3000/conversation/', {
-        method: 'POST',
-        headers: {
-            // Authorization: 'Basic ' + base64.encode("apikey:KjcI6wFW-v2MtmHAxuLY5sRdS0_OqMwNG3849n5Ws77y"),
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+            "text": input
         },
-        body: JSON.stringify(body)
-    })
-        .then((response) => response.json())
-        .then((responseJson) => {
+        context: context
+    };
 
-            // console.log(responseJson);
-            return responseJson;
+    const resp = await (await fetch('http://10.50.113.93:3000/conversation/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            text: input,
+            context: context
         })
-        .catch((error) => {
-            console.error(error);
-        });
+    })).json()
+    return resp
 
 }
 
