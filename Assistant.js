@@ -24,9 +24,7 @@ MessageRequest = (input, context = {}) => {
            
             return responseJson;
         })
-        .catch((error) => {
-            console.error(error);
-        });
+       
 
 }
 
