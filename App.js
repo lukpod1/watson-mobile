@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, WebView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-import api from './services/index';
 import { MessageRequest } from './Assistant';
-import { axios } from 'axios'
+
 // import WatsonIcon from './WatsonIcon';
 
 export default class App extends Component {
@@ -45,10 +43,6 @@ export default class App extends Component {
 
   initalMessage = async () => {
     try {
-      // const response = await api.post('/conversation/', {
-      //   message: '',
-      //   context: ''
-      // })
       let response = await MessageRequest("");
 
       this.setState({
@@ -100,8 +94,3 @@ export default class App extends Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-});
-
-
