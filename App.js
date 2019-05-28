@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-// importação do gifted chat que ajuda não criando de interface de chat
+
+// importação do GiftedChat, bibilioteca UI para react-native que auxilia na criação de chats.
 import { GiftedChat } from 'react-native-gifted-chat';
-// importação do arquivo Assistant
+
+// importação do arquivo Assistant, onde existe o método que vai fazer a comunicação entre 
+// o App mobile e o servidor hospedado no heroku.
 import { MessageRequest } from './Assistant';
 
+// Declaração da classe principal, esta que vai conter os métodos para as todas as funcionalidades do chat.
 export default class App extends Component {
-  // construtor com a
+  // Construtor para inicializar os estados messages e context. 
   constructor(props) {
     super(props);
 
@@ -15,12 +19,13 @@ export default class App extends Component {
     }
   }
 
-  // o metodo componentDidMount é executado quando o component do React Native é iniciado
+  // O metodo componentDidMount é executado quando o component do React Native é iniciado.
   componentDidMount() {
     this.initalMessage();
   }
 
-  // o metodo render vai renderizar o component GiftedChat
+  // O metodo render vai renderizar o component GiftedChat, oriundo da biblioteca importada acima.
+  // O componente necessita de alguns paramêtros(props), como o estato "messages", onde as mensagens são guardadas ao enviar.
   render() {
     return (
       <GiftedChat
@@ -36,7 +41,8 @@ export default class App extends Component {
     );
   }
 
-
+  // Método usado ao enviar uma mensagem, onde vai adicionando cada mensagem no estado. 
+  // Dessa forma, o estado será alimentado e poderá ser carregado na tela, exibindo todas as mensagens.
   onSend = (message = []) => {
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, message),
@@ -49,6 +55,9 @@ export default class App extends Component {
 
   }
 
+  // Método usado para gerar a mensagem inicial do chatbot, mandando uma mensagem em branco.
+  // Criando um objeto "message", onde há algumas características, tais como o id, gerado um número aleatório
+  // o texto, ou seja, a resposta recebida pelo servidor e o "createdAt", momento que a mensagem foi enviada.
   initalMessage = async () => {
     try {
       let response = await MessageRequest("");
@@ -75,6 +84,9 @@ export default class App extends Component {
     }
   }
 
+  // Esse método faz praticamente a mesma coisa do acima, com a diferença de que ao invés
+  // de enviar uma mensagem em branco para receber a mensagem inicial, envia a mensagem digitada pelo o usuário,
+  // recebendo assim a resposta que o chatbot foi programado para responder.
   getMessage = async (text) => {
     console.log(text)
 
