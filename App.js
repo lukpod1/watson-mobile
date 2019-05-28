@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
+// importação do gifted chat que ajuda não criando de interface de chat
 import { GiftedChat } from 'react-native-gifted-chat';
+// importação do arquivo Assistant
 import { MessageRequest } from './Assistant';
 
-// import WatsonIcon from './WatsonIcon';
-
 export default class App extends Component {
+  // construtor com a
   constructor(props) {
     super(props);
 
     this.state = {
       messages: [],
-      conversationID: null,
       context: null,
     }
   }
 
+  // o metodo componentDidMount é executado quando o component do React Native é iniciado
   componentDidMount() {
     this.initalMessage();
   }
 
+  // o metodo render vai renderizar o component GiftedChat
   render() {
     return (
       <GiftedChat
@@ -28,10 +30,12 @@ export default class App extends Component {
         multiline={false}
         user={{
           _id: '1',
+          name: 'E U'
         }}
       />
     );
   }
+
 
   onSend = (message = []) => {
     this.setState((previousState) => ({
@@ -69,27 +73,6 @@ export default class App extends Component {
     } catch (error) {
       alert(error)
     }
-
-
-    let response = await MessageRequest("");
-
-    this.setState({
-      context: response.context,
-    })
-
-    let message = {
-      _id: Math.round(Math.random() * 1000000).toString(),
-      text: response.output.text.join(' '),
-      createdAt: new Date(),
-      user: {
-        _id: '2',
-        name: 'Watson Assistant',
-      },
-      image: 'https://guiaarturnogueira.com.br/wp-content/uploads/2016/02/verona.jpg',
-    };
-    this.setState((previousState) => ({
-      messages: GiftedChat.append(previousState.messages, message),
-    }));
   }
 
   getMessage = async (text) => {
